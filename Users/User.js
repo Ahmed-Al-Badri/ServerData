@@ -35,6 +35,22 @@ class User {
     //
   }
 
+  leave_chat(chat_id) {
+    let temp = this.data.chats.chats;
+    if (temp) {
+      let datas = [];
+      temp.map((res) => {
+        if (res != chat_id) {
+          datas.push(res);
+        }
+      });
+      this.data.chats.chats = datas;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   addChat(chatId) {
     this.data.chats.chats.push(chatId);
   }

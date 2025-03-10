@@ -186,6 +186,13 @@ class All_Users {
     };
   }
 
+  leave_chat(user_id, chat_id) {
+    let find = this.users_key[user_id];
+    if (find) {
+      return find.leave_chat(chat_id);
+    }
+  }
+
   add_details(user_id, details) {
     const index = this.users.findIndex((user) => user.data.id == user_id);
     console.log("the key is +" + index);

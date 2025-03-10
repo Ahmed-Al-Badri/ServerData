@@ -84,7 +84,9 @@ wss.on("connection", (ws) => {
         break;
       case "send_to_chat":
         handleSendMessage(request.args, ws);
-        break;
+        break; //// working till this point;
+      case "leave_chat":
+        handleLeaveChat(request.args, ws);
       case "create_brodechat":
         handleCreateBrodeChat(request.args, ws);
         break;
@@ -385,6 +387,17 @@ function handleSendMessage(args, ws) {
       response: "Message sent successfully",
     })
   );
+}
+
+function handleLeaveChat(args, ws) {
+  const [reference, leave_chat] = args;
+  let id = CC.find_user_by_reference(reference);
+
+  if (id) {
+    if (CC.leave_chat(id, leave_chat)) {
+      handleGetAll([reference], ws);
+    }
+  }
 }
 
 function handleCreateChat(args, ws) {
