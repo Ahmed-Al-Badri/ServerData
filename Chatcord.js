@@ -34,6 +34,7 @@ process.on("SIGINT", () => {
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (err) => {
+  console.log(err);
   wss.close((closeErr) => {
     if (closeErr) {
       return;
@@ -47,7 +48,10 @@ process.on("exit", () => {
   cleanUpsAndExit();
 });
 
-const wss = new WebSocket.Server({ address: "10.0.0.115", port: 8081 });
+const wss = new WebSocket.Server({
+  address: "10.200.47.143",
+  port: 8081,
+});
 const userConnections = {};
 
 wss.on("connection", (ws) => {
@@ -84,9 +88,15 @@ wss.on("connection", (ws) => {
         break;
       case "send_to_chat":
         handleSendMessage(request.args, ws);
-        break; //// working till this point;
+        break;
       case "leave_chat":
         handleLeaveChat(request.args, ws);
+        break;
+      case "get_style":
+        handleGetStyle(request.args, ws);
+        break; //// working till this point;
+      case "update_style":
+        handleUpdateStyle(request.args, ws);
       case "create_brodechat":
         handleCreateBrodeChat(request.args, ws);
         break;
@@ -214,7 +224,7 @@ function handleFetchMessages(args, ws) {
 
 function handleGetAll(args, ws) {
   try {
-    const reference_id = args[0];
+    const [reference_id] = args;
     //console.log("the getall " + reference_id);
     let id = CC.find_user_by_reference(reference_id);
     //console.log("the id found was " + id);
@@ -223,19 +233,32 @@ function handleGetAll(args, ws) {
       if (b) {
         let sends = [];
         let bsends = [];
+        let temp = undefined;
+        let users = {};
+        let usr = [];
         b.chats.map((res) => {
           //console.log(res);
-          sends.push(Chats.getChat(id, res));
+          temp = Chats.getChat(id, res);
+          if (temp) {
+            usr = [...usr, ...Chats.getChatUsers(res)];
+            sends.push(temp);
+          }
         });
         b.brodechats.map((res) => {
           bsends.push(Chats.getChat(id, res));
+        });
+
+        usr.map((res) => {
+          if (users[res] == undefined) {
+            users[res] = CC.get_style(res);
+          }
         });
 
         ws.send(
           JSON.stringify({
             type: "get_all",
             status: 1,
-            response: { chats: sends, brodechats: bsends },
+            response: { chats: sends, brodechats: bsends, users: users },
           })
         );
         return;
@@ -310,18 +333,20 @@ function handleJoinChat(args, ws) {
     return;
   }
 
-  const result = Chats.join_chat(userId, chatId);
+  let result = Chats.join_chat(userId, chatId);
   if (result) {
-    CC.add_chat(userId, result);
-    handleGetAll([reference_id], ws);
-    ws.send(
-      JSON.stringify({
-        type: "join_chat",
-        status: 1,
-        response: "Joined chat successfully",
-        chatId: result,
-      })
-    );
+    result = CC.add_chat(userId, chatId);
+    if (result) {
+      handleGetAll([reference_id], ws);
+      ws.send(
+        JSON.stringify({
+          type: "join_chat",
+          status: 1,
+          response: "Joined chat successfully",
+          chatId: chatId,
+        })
+      );
+    }
   } else {
     ws.send(
       JSON.stringify({
@@ -396,6 +421,45 @@ function handleLeaveChat(args, ws) {
   if (id) {
     if (CC.leave_chat(id, leave_chat)) {
       handleGetAll([reference], ws);
+    }
+  }
+}
+
+function handleGetStyle(args, ws, sends) {
+  if (sends) {
+    ws.send(
+      JSON.stringify({
+        type: "get_style",
+        style: sends,
+        status: 1,
+      })
+    );
+  }
+  const [reference] = args;
+  let id = CC.find_user_by_reference(reference);
+
+  if (id) {
+    let data = CC.get_style(id);
+    if (data) {
+      ws.send(
+        JSON.stringify({
+          type: "get_style",
+          style: data,
+          status: 1,
+        })
+      );
+    }
+  }
+}
+
+function handleUpdateStyle(args, ws) {
+  const [reference, update] = args;
+  let id = CC.find_user_by_reference(reference);
+
+  if (id) {
+    let data = CC.update_stlye(id, update);
+    if (data) {
+      handleGetStyle([reference], ws, send);
     }
   }
 }

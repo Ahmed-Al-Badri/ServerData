@@ -28,9 +28,13 @@
       "chats": [
         "chat_1741497919130_f6qb6jd0h",
         "chat_1741498088302_gke29ptpl",
-        "chat_1741566877508_jdbasv9zd"
+        "chat_1741566877508_jdbasv9zd",
+        "chat_1741649864504_qq5oy5c79"
       ],
       "brodechats": []
+    },
+    "style": {
+      "name": "a"
     }
   },
   {
@@ -46,6 +50,30 @@
       "notification": [],
       "chats": [
         "chat_1741566877508_jdbasv9zd"
+      ],
+      "brodechats": []
+    },
+    "style": {
+      "name": "Ahmed"
+    }
+  },
+  {
+    "email": "aa",
+    "id": "aa",
+    "username": "Ahmed Al-Badri",
+    "style": {
+      "name": "Ahmed Al-Badri"
+    },
+    "hash": "b955a16bc2c9b81f5849dac2a9ed9489a1723c1d9118edbccb7f8bce850d9e01",
+    "hash_2": "83669ef339bbafcfacac7b11f7fb99a1d136118d3fd2ecd4d5df74a675f4e600",
+    "salt1": "80cdefb009cf449b2fac9c885f0beff7",
+    "salt2": "d8d95b6620467f80a9f0924fe1434b24",
+    "reference": "20517894bd98f77c71871691cfb65b70de5470b81197749c",
+    "chats": {
+      "notification": [],
+      "chats": [
+        "chat_1741649847511_umer76c27",
+        "chat_1741649864504_qq5oy5c79"
       ],
       "brodechats": []
     }

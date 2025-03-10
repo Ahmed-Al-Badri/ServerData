@@ -1,0 +1,26 @@
+{
+  "chat_name": "Chat name to be NameD Part TWo",
+  "chat_id": "chat_1741649864504_qq5oy5c79",
+  "messages": [
+    {
+      "userId": "aa",
+      "message": "Hello",
+      "timestamp": "2025-03-10T23:38:07.707Z"
+    },
+    {
+      "userId": "a",
+      "message": "Hello To You Too",
+      "timestamp": "2025-03-10T23:41:30.419Z"
+    },
+    {
+      "userId": "aa",
+      "message": "Some info to Display",
+      "timestamp": "2025-03-10T23:44:31.919Z"
+    }
+  ],
+  "users": [
+    "aa",
+    "aa",
+    "a"
+  ]
+}

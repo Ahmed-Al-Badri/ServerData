@@ -2,6 +2,7 @@ const user_details = {
   email: "string",
   id: "string",
   username: "username",
+  style: { name: "Wanted", img: "url" },
   hash: 12,
   hash_2: 5,
   salt1: "string",
@@ -16,8 +17,8 @@ class User {
   }
 
   export() {
-    console.log("this is the user data");
-    console.log(this.data);
+    //console.log("this is the user data");
+    //console.log(this.data);
     return this.data;
   }
 
@@ -52,7 +53,22 @@ class User {
   }
 
   addChat(chatId) {
-    this.data.chats.chats.push(chatId);
+    let found = false;
+    this.data.chats.chats.map((res) => {
+      if (found) {
+        return;
+      }
+      if (res == chatId) {
+        found = true;
+      }
+    });
+    if (found) {
+      return undefined;
+    } else {
+      console.log(chatId);
+      this.data.chats.chats.push(chatId);
+      return chatId;
+    }
   }
 
   addBrodeChat(brodeChatId) {
@@ -61,6 +77,18 @@ class User {
 
   getChatDetails() {
     return this.data.chats;
+  }
+
+  getStyle() {
+    if (this.data.style) {
+      return this.data.style;
+    }
+    this.data.style = { name: this.data.username, img: undefined };
+  }
+
+  updateStyle(update) {
+    this.data.style = { ...(this.data.stlye || {}), ...update };
+    return this.data.style;
   }
 }
 

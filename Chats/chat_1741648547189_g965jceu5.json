@@ -1,0 +1,23 @@
+{
+  "chat_name": "New Chat ID",
+  "chat_id": "chat_1741648547189_g965jceu5",
+  "messages": [
+    {
+      "userId": "a",
+      "message": "Info to display",
+      "timestamp": "2025-03-10T23:30:11.003Z"
+    }
+  ],
+  "users": [
+    "a",
+    "a",
+    "a",
+    "a",
+    "a",
+    "a",
+    "a",
+    "a",
+    "a",
+    "a"
+  ]
+}

@@ -203,7 +203,7 @@ class All_Chats {
       this.exportChat(chat_id);
       return chat_id;
     } else {
-      return undefined;
+      return chat_id;
       return chat_id;
     }
   }

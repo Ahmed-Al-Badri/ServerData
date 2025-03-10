@@ -92,6 +92,7 @@ class All_Users {
       email: email,
       id: id,
       username: username,
+      style: { name: username, img: undefined },
       hash: hash,
       hash_2: hash_2,
       salt1: salt1,
@@ -110,8 +111,8 @@ class All_Users {
       id: newUser.data.id,
     };
 
-    console.log("the created reference is " + newUser.data.reference);
-    console.log("for " + username);
+    //console.log("the created reference is " + newUser.data.reference);
+    //console.log("for " + username);
     return { message: "Created Account", user: data };
   }
 
@@ -120,10 +121,10 @@ class All_Users {
     const user = this.users.find(
       (user) => user.data.email === emailOrId || user.data.id === emailOrId
     );
-    console.log(this.users);
+    //console.log(this.users);
 
     if (!user) {
-      console.log("not able to log in");
+      //console.log("not able to log in");
       throw new Error("User not found.");
     }
     console.log("Logged in");
@@ -203,15 +204,15 @@ class All_Users {
   }
 
   add_chat(user_id, chat_id) {
-    console.log("the user id");
-    console.log(user_id);
+    //console.log("the user id");
+    //console.log(user_id);
     if (this.users_key[user_id]) {
       console.log("the user is found");
       //console.log(this.users_key);
       return this.users_key[user_id].addChat(chat_id);
     } else {
-      console.log(this.users_key);
-      return false;
+      //console.log(this.users_key);
+      return undefined;
     }
   }
 
@@ -231,6 +232,20 @@ class All_Users {
         user_id: user_id,
         user_name: hold.username,
       };
+    }
+    return undefined;
+  }
+
+  get_style(user_id) {
+    if (this.users_key[user_id]) {
+      return this.users_key[user_id].getStyle();
+    }
+    return undefined;
+  }
+
+  update_stlye(user_id, update) {
+    if (this.users_key[user_id]) {
+      return this.users_key[user_id].updateStyle(update);
     }
     return undefined;
   }
