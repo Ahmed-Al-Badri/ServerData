@@ -12,6 +12,9 @@
       "notification": [],
       "chats": [],
       "brodechats": []
+    },
+    "style": {
+      "name": "aaa"
     }
   },
   {
@@ -35,7 +38,21 @@
     },
     "style": {
       "name": "a"
-    }
+    },
+    "mails": [
+      {
+        "mail_id": "0t4lqo4u75bmsgbjog",
+        "status": 1
+      },
+      {
+        "mail_id": "l8p15fj4ku4ehx73f8",
+        "status": 1
+      },
+      {
+        "mail_id": "cnw1h6bthkehgr3v3v",
+        "status": 1
+      }
+    ]
   },
   {
     "email": "Ahmed",
@@ -62,7 +79,10 @@
     "id": "aa",
     "username": "Ahmed Al-Badri",
     "style": {
-      "name": "Ahmed Al-Badri"
+      "to": [],
+      "content": {
+        "topic": ""
+      }
     },
     "hash": "b955a16bc2c9b81f5849dac2a9ed9489a1723c1d9118edbccb7f8bce850d9e01",
     "hash_2": "83669ef339bbafcfacac7b11f7fb99a1d136118d3fd2ecd4d5df74a675f4e600",
@@ -76,6 +96,468 @@
         "chat_1741649864504_qq5oy5c79"
       ],
       "brodechats": []
-    }
+    },
+    "mails": [
+      {
+        "mail_id": "c9i1ncpqx1q55hic67",
+        "status": 3
+      },
+      {
+        "mail_id": "u7xb5dx9f3addb1qq5",
+        "status": 3
+      },
+      {
+        "mail_id": "7xy3wetmr8wma5b0v6",
+        "status": 3
+      },
+      {
+        "mail_id": "bk4wx2bnkdjz1n3y4w",
+        "status": 7
+      },
+      {
+        "mail_id": "bl2d0cmz2aycmzfqci",
+        "status": 7
+      },
+      {
+        "mail_id": "2v4lo7m5u60tj4ze9b",
+        "status": 7
+      },
+      {
+        "mail_id": "fg5av6g5mt69s9nllj",
+        "status": 7
+      },
+      {
+        "mail_id": "fz2jmyeqh5fn49dwq1",
+        "status": 7
+      },
+      {
+        "mail_id": "4zm5gh581zcqfiqgdm",
+        "status": 4
+      },
+      {
+        "mail_id": "ruy0t9e6ubgjgxz9ru",
+        "status": 7
+      },
+      {
+        "mail_id": "kn884c91bjul9co2td",
+        "status": 4
+      },
+      {
+        "mail_id": "yaaz3k8815e2o5e4ne",
+        "status": 7
+      },
+      {
+        "mail_id": "gyp0224lysc7n09wqb",
+        "status": 0
+      },
+      {
+        "mail_id": "8aegl1tifbxjyuohg9",
+        "status": 0
+      },
+      {
+        "mail_id": "i48i57vpphmm22qf3u",
+        "status": 0
+      },
+      {
+        "mail_id": "t4shrur1o2zb86j05l",
+        "status": 0
+      },
+      {
+        "mail_id": "4hkuoq26xybvxadii0",
+        "status": 0
+      },
+      {
+        "mail_id": "50w4n3nijcm5lgyyuw",
+        "status": 0
+      },
+      {
+        "mail_id": "ke8dnksrbmaf0y9dbe",
+        "status": 0
+      },
+      {
+        "mail_id": "8bfy7zvthl57w43aye",
+        "status": 0
+      },
+      {
+        "mail_id": "n1ufj0s11zpp1k2uet",
+        "status": 0
+      },
+      {
+        "mail_id": "riwrmw6oi12fdfa3c9",
+        "status": 0
+      },
+      {
+        "mail_id": "1sc715jbuqml1bshhv",
+        "status": 0
+      },
+      {
+        "mail_id": "yqzglebjk53lf7pk26",
+        "status": 0
+      },
+      {
+        "mail_id": "fm0oq8e1kymnwhna20",
+        "status": 0
+      },
+      {
+        "mail_id": "l8p15fj4ku4ehx73f8",
+        "status": 2
+      },
+      {
+        "mail_id": "hya6zdybun9rilmxvj",
+        "status": 0
+      },
+      {
+        "mail_id": "q4bkm39wjebvz74h1j",
+        "status": 0
+      },
+      {
+        "mail_id": "z69ue0t5sueov0h5wu",
+        "status": 0
+      },
+      {
+        "mail_id": "6tpl20q9ramimv6utz",
+        "status": 0
+      },
+      {
+        "mail_id": "usuo6hhoc33h2ggkdb",
+        "status": 0
+      },
+      {
+        "mail_id": "w2b2x7quwcdcmzt9h0",
+        "status": 0
+      },
+      {
+        "mail_id": "gby59ymwwizsoxmo5r",
+        "status": 0
+      },
+      {
+        "mail_id": "fslhwxsh8fnv9w5agt",
+        "status": 0
+      },
+      {
+        "mail_id": "wm04nycn312zcjdp7d",
+        "status": 0
+      },
+      {
+        "mail_id": "0t4lqo4u75bmsgbjog",
+        "status": 4
+      },
+      {
+        "mail_id": "rqbwgbqxwfp1jbphxg",
+        "status": 0
+      },
+      {
+        "mail_id": "xkys4ptwkxugiqdzuu",
+        "status": 0
+      },
+      {
+        "mail_id": "dt0g3um9kyvones6ff",
+        "status": 0
+      },
+      {
+        "mail_id": "cnw1h6bthkehgr3v3v",
+        "status": 2
+      },
+      {
+        "mail_id": "79gmntnk78iuz1qykh",
+        "status": 0
+      },
+      {
+        "mail_id": "rdy7el4thfaz92qril",
+        "status": 1
+      },
+      {
+        "mail_id": "f8x8qdl86xbvrdznny",
+        "status": 0
+      },
+      {
+        "mail_id": "l82di17k57esjay9u6",
+        "status": 2
+      },
+      {
+        "mail_id": "p6x3s2g2aegxgxkhub",
+        "status": 0
+      },
+      {
+        "mail_id": "5q4fsklfik78okzonf",
+        "status": 0
+      },
+      {
+        "mail_id": "3siyhtwgpjfgnooldx",
+        "status": 0
+      },
+      {
+        "mail_id": "fuunbblob95927vurb",
+        "status": 0
+      },
+      {
+        "mail_id": "tgxj4s40mcz7y8jxb2",
+        "status": 0
+      },
+      {
+        "mail_id": "h9919t9z1s8qi4em1f",
+        "status": 0
+      },
+      {
+        "mail_id": "bdiw0fgqljyq1mfhv2",
+        "status": 0
+      },
+      {
+        "mail_id": "870ckuervi1zixrlkx",
+        "status": 0
+      },
+      {
+        "mail_id": "wf5j1sm5oor9wqy801",
+        "status": 0
+      },
+      {
+        "mail_id": "6cvv1medvrxwovdzcx",
+        "status": 0
+      },
+      {
+        "mail_id": "sanu84j4ta59rgxq9x",
+        "status": 0
+      },
+      {
+        "mail_id": "e8n38hfl6ngm2lsacl",
+        "status": 0
+      },
+      {
+        "mail_id": "mk0a1j4tllamt907xo",
+        "status": 0
+      },
+      {
+        "mail_id": "savneempp41qchrvjx",
+        "status": 0
+      }
+    ]
+  },
+  {
+    "email": "a@mail.com",
+    "id": "aexample",
+    "username": "aexample",
+    "style": {
+      "name": "aexample"
+    },
+    "hash": "fb28686f625582036a0c577f8f1d8b5f86aace49628e66eeef576471b5ad667a",
+    "hash_2": "f4bef2f2cd31d7347d560f198728d6734b8998c635519f07617b80ab7a1acf7e",
+    "salt1": "5b35906c4affba7d69d111cc11c0ca91",
+    "salt2": "485bae21587c1acdce9a81e7f6dead80",
+    "reference": "9f3569e93f532d42180ce2b417f95629ec1333231b3b7c5c",
+    "chats": {
+      "notification": [],
+      "chats": [],
+      "brodechats": []
+    },
+    "mails": [
+      {
+        "mail_id": "sbap8p6qdgmn100085",
+        "status": 0
+      },
+      {
+        "mail_id": "4n08ezz004f3cmk6oj",
+        "status": 4
+      },
+      {
+        "mail_id": "jyy2b051vu1j3mmfys",
+        "status": 0
+      },
+      {
+        "mail_id": "gv7wkdkkyhwxi5y9ew",
+        "status": 6
+      }
+    ]
+  },
+  {
+    "email": "b@gmail.com",
+    "id": "b",
+    "username": "bexample",
+    "style": {
+      "name": "bexample"
+    },
+    "hash": "010178cd0302492a5bf6446e6584d638f463656bb4135c33362df3d38cc6f64c",
+    "hash_2": "f8f3046b26b179a0176d39d564a20e1cc616d5da6231e28c3d8d8515c2cbeced",
+    "salt1": "d67675a8dd72a41637eb1e2efb6e1b46",
+    "salt2": "27d5271f8b64b2cfd4211938116ebf0f",
+    "reference": "010250ec8f43a33cd1781fc47b5e656ca6abb4f76533a0a9",
+    "chats": {
+      "notification": [],
+      "chats": [],
+      "brodechats": []
+    },
+    "mails": [
+      {
+        "mail_id": "4n08ezz004f3cmk6oj",
+        "status": 1
+      },
+      {
+        "mail_id": "0emx0e7cffg64q8g56",
+        "status": 1
+      },
+      {
+        "mail_id": "1fxfslm7wuoisxj5ow",
+        "status": 1
+      },
+      {
+        "mail_id": "nifwz3jnkndjljrnuy",
+        "status": 0
+      },
+      {
+        "mail_id": "en7dgy292itvylhidl",
+        "status": 4
+      },
+      {
+        "mail_id": "qk9kt9575sjyjtxxk3",
+        "status": 1
+      },
+      {
+        "mail_id": "io45xfbugxmbsi4enh",
+        "status": 0
+      },
+      {
+        "mail_id": "cclsfv38x947svqycx",
+        "status": 4
+      },
+      {
+        "mail_id": "zt5sr2l5ca2c90h7hu",
+        "status": 0
+      },
+      {
+        "mail_id": "7uzgaizyjumwdaukdl",
+        "status": 4
+      },
+      {
+        "mail_id": "6cb9q8b0fi5d1zlkho",
+        "status": 0
+      },
+      {
+        "mail_id": "v1sne6aryom5f23eel",
+        "status": 1
+      },
+      {
+        "mail_id": "muxgdf7u7yjj0w9rjw",
+        "status": 0
+      },
+      {
+        "mail_id": "abbxdn6xff9mgrnfhp",
+        "status": 4
+      },
+      {
+        "mail_id": "wyn336cevjcqpnb0on",
+        "status": 0
+      },
+      {
+        "mail_id": "244zrh9m7j4h8r817g",
+        "status": 4
+      },
+      {
+        "mail_id": "9qccggfyk1x8b93l45",
+        "status": 0
+      },
+      {
+        "mail_id": "0f02wrftycusiz6s1m",
+        "status": 4
+      },
+      {
+        "mail_id": "lzxodh1w6dh3t803yd",
+        "status": 0
+      },
+      {
+        "mail_id": "siyhjjcjpzlsy4la1z",
+        "status": 4
+      },
+      {
+        "mail_id": "rjvwwbrfan2r7pvkjy",
+        "status": 0
+      },
+      {
+        "mail_id": "2kigswnp832yqz02w0",
+        "status": 4
+      }
+    ]
+  },
+  {
+    "email": "first@gmail.com",
+    "id": "first",
+    "username": "first",
+    "style": {
+      "name": "first"
+    },
+    "hash": "4896b84c6582beab17a52e956fb747901d9948bbe7edf78d8039354020a4029c",
+    "hash_2": "65445402addb7ca58a6f7e2dc8663da22cdda52a4930b408565388f2a9131554",
+    "salt1": "e58fb6109c59cff15a835bd2b0d2e15a",
+    "salt2": "795519f9c87a7b596ee734b1102bc760",
+    "reference": "8a8d870239e6476b5b49e61a3e11754e8a4a3d29358f13c4",
+    "chats": {
+      "notification": [],
+      "chats": [],
+      "brodechats": []
+    },
+    "mails": [
+      {
+        "mail_id": "e9hefo3de5p1q3u3jk",
+        "status": 0
+      },
+      {
+        "mail_id": "7melt9zomsxt1qnpae",
+        "status": 4
+      },
+      {
+        "mail_id": "1i9ra1qusdmohf7n4k",
+        "status": 0
+      },
+      {
+        "mail_id": "0emx0e7cffg64q8g56",
+        "status": 4
+      },
+      {
+        "mail_id": "mlilnqh3aotn6i1cqc",
+        "status": 0
+      },
+      {
+        "mail_id": "1fxfslm7wuoisxj5ow",
+        "status": 4
+      },
+      {
+        "mail_id": "en7dgy292itvylhidl",
+        "status": 1
+      },
+      {
+        "mail_id": "uuzyheoeop4n01im7k",
+        "status": 0
+      },
+      {
+        "mail_id": "qk9kt9575sjyjtxxk3",
+        "status": 4
+      },
+      {
+        "mail_id": "cclsfv38x947svqycx",
+        "status": 1
+      },
+      {
+        "mail_id": "7uzgaizyjumwdaukdl",
+        "status": 1
+      },
+      {
+        "mail_id": "abbxdn6xff9mgrnfhp",
+        "status": 1
+      },
+      {
+        "mail_id": "244zrh9m7j4h8r817g",
+        "status": 1
+      },
+      {
+        "mail_id": "0f02wrftycusiz6s1m",
+        "status": 1
+      },
+      {
+        "mail_id": "siyhjjcjpzlsy4la1z",
+        "status": 1
+      },
+      {
+        "mail_id": "2kigswnp832yqz02w0",
+        "status": 1
+      }
+    ]
   }
 ]

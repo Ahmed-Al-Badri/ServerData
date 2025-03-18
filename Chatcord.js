@@ -1,13 +1,18 @@
 const All_Users = require("./Users/Users");
 const ALL_Chats = require("./Chat/AllChats");
 const WebSocket = require("ws");
+const All_Mails = require("./Mails/All_Mails");
 const CC = new All_Users();
+const Mails = new All_Mails();
 CC.imports("Users_data.json");
 const Chats = new ALL_Chats();
+
 CC.new_user("aaa", "aaa", "aaa", "aaa");
+
 async function clean_ups() {
   CC.export("Users_data.json");
   Chats.exportChat();
+  Mails.export();
   wss.close();
   process.exit(0);
 }
@@ -34,7 +39,7 @@ process.on("SIGINT", () => {
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (err) => {
-  console.log(err);
+  //console.og(err);
   wss.close((closeErr) => {
     if (closeErr) {
       return;
@@ -49,7 +54,7 @@ process.on("exit", () => {
 });
 
 const wss = new WebSocket.Server({
-  address: "10.200.47.143",
+  address: "10.0.0.115",
   port: 8081,
 });
 const userConnections = {};
@@ -112,6 +117,34 @@ wss.on("connection", (ws) => {
       case "search_users":
         handleSearchUsers(request.args, ws);
         break;
+      // Mail content
+      case "create_mail":
+        handleCreateMail(request.args, ws);
+        break;
+      case "update_mail":
+        handleUpdateMail(request.args, ws);
+        break;
+      case "update_status":
+        handleUpdateStatus(request.args, ws);
+        break;
+      case "send_mail":
+        handleSendMail(request.args, ws);
+        break;
+      case "get_mail":
+        handleGetMail(request.args, ws);
+        break;
+      case "status_mail":
+        handleStatusMail(request.args, ws);
+        break;
+      case "get_draft":
+        handleGetDraft(request.args, ws);
+        break;
+      case "all_mails":
+        handleAllMails(request.args, ws);
+        break;
+      case "search_mail":
+        break;
+
       default:
         ws.send(
           JSON.stringify({ status: 0, response: "Unknown request type" })
@@ -136,10 +169,10 @@ wss.on("connection", (ws) => {
 
 function handleLogin(args, ws) {
   try {
-    //console.log(args);
+    ////console.og(args);
     const [username_email, password] = args;
     const loginResponse = CC.login(username_email, password);
-    //console.log(
+    ////console.og(
     //  "the email is " + username_email + " and the password " + password
     //);
     if (!userConnections[loginResponse.user.id]) {
@@ -167,10 +200,10 @@ function handleLogin(args, ws) {
 
 function handleCreateAccount(args, ws) {
   const [email, id, password, username] = args;
-  //console.log("create account");
-  //console.log(args);
+  ////console.og("create account");
+  ////console.og(args);
   const newUserResponse = CC.new_user(email, id, password, username);
-  //console.log(newUserResponse);
+  ////console.og(newUserResponse);
   if (typeof newUserResponse === "string") {
     ws.send(
       JSON.stringify({
@@ -225,9 +258,9 @@ function handleFetchMessages(args, ws) {
 function handleGetAll(args, ws) {
   try {
     const [reference_id] = args;
-    //console.log("the getall " + reference_id);
+    ////console.og("the getall " + reference_id);
     let id = CC.find_user_by_reference(reference_id);
-    //console.log("the id found was " + id);
+    ////console.og("the id found was " + id);
     if (id) {
       let b = CC.get_chats(id);
       if (b) {
@@ -237,7 +270,7 @@ function handleGetAll(args, ws) {
         let users = {};
         let usr = [];
         b.chats.map((res) => {
-          //console.log(res);
+          ////console.og(res);
           temp = Chats.getChat(id, res);
           if (temp) {
             usr = [...usr, ...Chats.getChatUsers(res)];
@@ -371,7 +404,7 @@ function handleUserInfo(args, ws) {
 function handleSendMessage(args, ws) {
   const [reference_id, chatId, message] = args;
   const userId = CC.find_user_by_reference(reference_id);
-  console.log(userId);
+  //console.og(userId);
   if (!userId) {
     ws.send(
       JSON.stringify({
@@ -676,4 +709,190 @@ function handleSearchUsers(args, ws) {
       response: matchedUsers,
     })
   );
+}
+
+function handleCreateMail(args, ws) {
+  const [reference] = args;
+  let email_id = CC.find_user_by_reference(reference);
+
+  if (email_id) {
+    let mail_id = Mails.create_mail(email_id);
+    let temp = CC.mails(email_id, mail_id, 0);
+    if (temp == true) {
+      ws.send(
+        JSON.stringify({
+          type: "create_mail",
+          mailId: mail_id,
+          status: 1,
+        })
+      );
+    }
+  }
+}
+
+function handleGetDraft(args, ws) {
+  const [reference, draft_id] = args;
+  let email = CC.find_email_by_reference(reference);
+
+  if (email) {
+    let draft = draft_id;
+    if (draft == undefined) {
+      draft = Mails.create_mail(email);
+      CC.mails(email, draft, 0);
+    }
+    //let status = Mails.get_draft(email, draft);
+    let mail_data = Mails.get_draft(email, draft);
+    ws.send(JSON.stringify({ type: "get_draft", draft: mail_data }));
+  }
+}
+
+/**
+ Mail_details = {
+ id: id_of_mail,
+ loaded: 1,
+ data: {
+ from: "",
+  to: ["", ""],
+  previous: "id_of_mail",
+  mail_id: "uniqe 18 len or more",
+  date_create: "date create",
+  is_draft: true, //false if not, as in send.
+  data_send: "undefined untile send",
+  content: {
+    topic: "Topic of the mail",
+    content: "contents of the mail",
+    date: "date send, as in became undraft",
+  },
+ }
+ }
+ */
+
+function handleUpdateMail(args, ws) {
+  const [reference, mail_details] = args;
+  let user_mail = CC.find_email_by_reference(reference);
+  if (user_mail) {
+    let temp = Mails.update_mail(user_mail, mail_details);
+    if (temp) {
+      ws.send(JSON.stringify({ type: "update_mail", status: 1 }));
+    }
+  }
+}
+
+function handleUpdateStatus(args, ws) {
+  const [reference, mail_id, type] = args;
+  let email_id = CC.find_email_by_reference(reference);
+  if (email_id) {
+    let find_mail = CC.mails(email_id, mail_id, type);
+    console.log(find_mail);
+    if (find_mail == 4) {
+      handleSendMail([reference, mail_id], ws);
+    }
+  }
+}
+
+function handleStatusMail(args, ws) {
+  const [reference, chat_id] = args;
+  let client = CC.find_user_by_reference(reference);
+
+  if (client) {
+    let temp = Mails.get_mail(client, chat_id);
+    let user_mail = CC.get_mail(client, chat_id);
+    if (temp) {
+      ws.send(
+        JSON.stringify({
+          type: "status_mail",
+          status: 1,
+          Mail: { origin: temp, status: user_mail },
+        })
+      );
+    }
+  }
+}
+
+function handleSendMail(args, ws) {
+  const [reference, mail_id] = args;
+  let user = CC.find_email_by_reference(reference);
+  if (user) {
+    let data = Mails.send_mail(user, mail_id);
+    let temp = undefined;
+    if (data) {
+      data.map((res) => {
+        console.log(res);
+        console.log("is the given");
+        let user_id = CC.get_id_by_mail(res);
+        console.log(user_id);
+        console.log("the user found");
+        let refer = CC.get_reference(user_id);
+        console.log(refer);
+        console.log("the reference");
+        if (CC.mails(res, mail_id, 1)) {
+          if (userConnections[user_id]) {
+            //temp = CC.get_reference(res);
+            console.log(userConnections[user_id]);
+            console.log("all sockets");
+            userConnections[user_id].map((ress) => {
+              handleAllMails([refer], ress);
+            });
+          }
+        }
+      });
+      handleAllMails(args, ws);
+    }
+  }
+}
+
+function handleGetMail(args, ws) {
+  const [reference, mail_id] = args;
+  let email_id = CC.find_email_by_reference(reference);
+
+  if (email_id) {
+    console.log(email_id);
+    let mail_content = Mails.get_mail(email_id, mail_id);
+    ws.send(
+      JSON.stringify({
+        type: "get_mail",
+        loaded: true,
+        mail: mail_content,
+      })
+    );
+  }
+}
+
+function handleAllMails(args, ws) {
+  const [reference_id] = args;
+  let data = CC.find_email_by_reference(reference_id);
+  //console.og(data + "is the user mail");
+  if (data) {
+    let datas = CC.get_mails(data);
+    let mails = Mails.send_soft_mail(data, datas);
+    ws.send(
+      JSON.stringify({
+        type: "all_mails",
+        mails_effect: datas,
+        mails: mails || "hello",
+        mail_users: CC.mail_details,
+        status: 1,
+      })
+    );
+  }
+}
+
+function handleSearch_mail(args, ws) {
+  const [reference, search_fors] = args;
+  let data = CC.find_user_by_reference(reference);
+  //search
+  if (data) {
+    let current_mails = CC.get_mails(data);
+    if (current_mails) {
+      let search = Chats.search(search_fors, current_mails);
+
+      ws.send(
+        JSON.stringify({
+          type: "search_mail",
+          status: 1,
+          mails: { base: current_mails, found: search },
+        })
+      );
+    }
+  }
 }

@@ -6,7 +6,11 @@ class All_Users {
   constructor() {
     this.users = []; // Array of User instances
     this.users_key = {};
+    this.mails_key = {};
     this.reference = {};
+
+    this.id_details = {};
+    this.mail_details = {};
   }
 
   imports(file_name = "users.json") {
@@ -18,11 +22,36 @@ class All_Users {
         const user = new User(userData);
         this.users.push(user);
         this.users_key[user.data.id] = user;
-        this.reference[user.data.reference] = user.data.id;
+        this.mails_key[user.data.email] = user;
+        this.reference[user.data.reference] = user;
+        this.id_details[user.data.id] = user.getStyle();
+        this.mail_details[user.data.email] = user.getStyle();
       });
     } catch (error) {
       console.error("Error reading or parsing file:", error);
     }
+  }
+
+  mails(email_id, mail_id, effect) {
+    if (this.mails_key[email_id]) {
+      return this.mails_key[email_id].mail(mail_id, effect);
+    } else {
+      return false;
+    }
+  }
+
+  get_mails(email_id) {
+    if (this.mails_key[email_id]) {
+      return this.mails_key[email_id].get_mails();
+    }
+    return false;
+  }
+
+  get_mail(user_id, mail_id) {
+    if (this.users_key[user_id]) {
+      return this.users_key[user_id].get_mail(mail_id);
+    }
+    return false;
   }
 
   export(file_name = "users.json") {
@@ -46,9 +75,18 @@ class All_Users {
     const userId = this.reference[reference_id];
 
     if (userId !== undefined) {
-      return userId;
+      return userId.data.id;
     } else {
       this.reference[reference_id] = null;
+      return undefined;
+    }
+  }
+
+  find_email_by_reference(reference_id) {
+    const data = this.reference[reference_id];
+    if (data) {
+      return data.data.email;
+    } else {
       return undefined;
     }
   }
@@ -56,16 +94,16 @@ class All_Users {
   new_user(email, id, password, username) {
     const emailTaken = this.users.some((user) => user.data.email === email);
     const idTaken = this.users.some((user) => user.data.id === id);
-    console.log(
-      "the email " +
-        email +
-        " and the id is " +
-        id +
-        " and the password is " +
-        password +
-        " and the name is " +
-        username
-    );
+    //console.log(
+    //  "the email " +
+    //    email +
+    //    " and the id is " +
+    //    id +
+    //    " and the password is " +
+    //    password +
+    //    " and the name is " +
+    //    username
+    //);
     if (emailTaken) {
       return "email already taken";
       //throw new Error("Email is already taken.");
@@ -99,20 +137,24 @@ class All_Users {
       salt2: salt2,
       reference: this.generateReference(),
       chats: { notification: [], chats: [], brodechats: [] },
+      mails: [],
     };
 
     const newUser = new User(newUserDetails);
     this.users.push(newUser);
     this.users_key[id] = newUser;
-    this.reference[newUser.data.reference] = id;
+    this.mails_key[email] = newUser;
+    this.id_details[id] = newUser.getStyle();
+    this.mail_details[email] = newUser.getStyle();
+    this.reference[newUser.data.reference] = newUser;
     let data = {
       reference: newUser.data.reference,
       username: newUser.data.username,
       id: newUser.data.id,
     };
 
-    //console.log("the created reference is " + newUser.data.reference);
-    //console.log("for " + username);
+    ////console.log("the created reference is " + newUser.data.reference);
+    ////console.log("for " + username);
     return { message: "Created Account", user: data };
   }
 
@@ -121,13 +163,13 @@ class All_Users {
     const user = this.users.find(
       (user) => user.data.email === emailOrId || user.data.id === emailOrId
     );
-    //console.log(this.users);
+    ////console.log(this.users);
 
     if (!user) {
-      //console.log("not able to log in");
+      ////console.log("not able to log in");
       throw new Error("User not found.");
     }
-    console.log("Logged in");
+    //console.log("Logged in");
     const hash = crypto
       .createHash("sha256")
       .update(password + user.data.salt1)
@@ -147,7 +189,7 @@ class All_Users {
       id: user.data.id,
     };
 
-    console.log("the wanted or given " + user.data.reference);
+    //console.log("the wanted or given " + user.data.reference);
 
     return {
       message: "Login successful",
@@ -196,7 +238,7 @@ class All_Users {
 
   add_details(user_id, details) {
     const index = this.users.findIndex((user) => user.data.id == user_id);
-    console.log("the key is +" + index);
+    //console.log("the key is +" + index);
     if (!index) {
       return false;
     }
@@ -204,14 +246,14 @@ class All_Users {
   }
 
   add_chat(user_id, chat_id) {
-    //console.log("the user id");
-    //console.log(user_id);
+    ////console.log("the user id");
+    ////console.log(user_id);
     if (this.users_key[user_id]) {
-      console.log("the user is found");
-      //console.log(this.users_key);
+      //console.log("the user is found");
+      ////console.log(this.users_key);
       return this.users_key[user_id].addChat(chat_id);
     } else {
-      //console.log(this.users_key);
+      ////console.log(this.users_key);
       return undefined;
     }
   }
@@ -245,9 +287,22 @@ class All_Users {
 
   update_stlye(user_id, update) {
     if (this.users_key[user_id]) {
-      return this.users_key[user_id].updateStyle(update);
+      let hold = this.users_key[user_id].updateStyle(update);
+      this.id_details[user_id] = this.users_key[user_id].getStyle();
+      return hold;
     }
     return undefined;
+  }
+
+  get_reference(user_id) {
+    if (this.users_key[user_id]) {
+      return this.users_key[user_id].data.reference;
+    }
+    return undefined;
+  }
+
+  get_id_by_mail(email_id) {
+    return this.mails_key[email_id].data.id;
   }
 }
 

@@ -9,6 +9,7 @@ const user_details = {
   salt2: "string",
   reference: "123123123", //9
   chats: { notification: [], chats: [], brodechats: [] },
+  mails: [], //mail id, status: (0 draft, 1 unread, 2 read, 3 inbox, 4 sent, 5 spam, 6 deleted)
 };
 
 class User {
@@ -16,9 +17,52 @@ class User {
     this.data = data;
   }
 
+  mail(mail_id, effect) {
+    let found = false;
+    if (this.data.mails == undefined) {
+      this.data.mails = [];
+    }
+    let size = this.data.mails.length;
+    for (let b = 0; b < size && found == false; b++) {
+      if (this.data.mails[b].mail_id == mail_id) {
+        found = true;
+        if (this.data.mails[b].status == 7) {
+          return 0;
+        }
+        if (this.data.mails[b].status == 0 && effect != 6) {
+          this.data.mails[b].status = 4;
+          return 4;
+        }
+        if (this.data.mails[b].status == 6 && effect == 6) {
+          this.data.mails[b].status = 7;
+        } else {
+          this.data.mails[b].status = effect;
+        }
+      }
+    }
+    if (found == false) {
+      this.data.mails.push({ mail_id: mail_id, status: effect });
+    }
+
+    return true;
+  }
+
+  get_mails() {
+    return this.data.mails;
+  }
+
+  get_mail(find_chat) {
+    let size = this.data.mails.length;
+    for (let b = 0; b < size; b++) {
+      if (this.data.mails[b].mail_id == find_chat) {
+        return this.data.mails[b];
+      }
+    }
+  }
+
   export() {
-    //console.log("this is the user data");
-    //console.log(this.data);
+    ////console.log("this is the user data");
+    ////console.log(this.data);
     return this.data;
   }
 
@@ -65,7 +109,7 @@ class User {
     if (found) {
       return undefined;
     } else {
-      console.log(chatId);
+      //console.log(chatId);
       this.data.chats.chats.push(chatId);
       return chatId;
     }
@@ -81,7 +125,7 @@ class User {
 
   getStyle() {
     if (this.data.style) {
-      return this.data.style;
+      return { ...this.data.style, email: this.data.email, id: this.data.id };
     }
     this.data.style = { name: this.data.username, img: undefined };
   }
