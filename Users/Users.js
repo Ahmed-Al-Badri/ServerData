@@ -302,7 +302,10 @@ class All_Users {
   }
 
   get_id_by_mail(email_id) {
-    return this.mails_key[email_id].data.id;
+    if (this.mails_key[email_id]) {
+      return this.mails_key[email_id].data.id;
+    }
+    return undefined;
   }
 }
 

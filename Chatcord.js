@@ -39,7 +39,7 @@ process.on("SIGINT", () => {
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (err) => {
-  //console.og(err);
+  console.log(err);
   wss.close((closeErr) => {
     if (closeErr) {
       return;
@@ -820,6 +820,9 @@ function handleSendMail(args, ws) {
         console.log(res);
         console.log("is the given");
         let user_id = CC.get_id_by_mail(res);
+        if (user_id == undefined) {
+          return;
+        }
         console.log(user_id);
         console.log("the user found");
         let refer = CC.get_reference(user_id);
